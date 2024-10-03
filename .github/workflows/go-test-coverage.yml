@@ -27,7 +27,7 @@ jobs:
     - name: Run tests with coverage
       run: |
         mkdir -p coverage
-        go test -v ./... -coverprofile=coverage/coverage.out
+        go test -v . -coverprofile=coverage/coverage.out
 
     # Optional Step: Display coverage in the console
     - name: Show coverage
