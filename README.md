@@ -6,9 +6,12 @@
 
 provides a modern go implementation of the kmeans clustering algorithm.
 
-This algorithm distinguishes itself from other kmeans clustering packages with use of generic data types
+This algorithm distinguishes itself from [other kmeans](https://github.com/muesli/kmeans) clustering packages with use of generic data types
 and iterators. Using these new language features can make it easier to integrate the clustering with 
 existing code and structs without explicitly duplicating existing objects into arrays.
+
+The implementation also supports observation value normalization and scaling while making it easy to 
+refer back to the original structure.
 
 Use of iterators of observations (e.g. `iter.Seq[Observation[float64]]`) also provides 
 a mechanism that allows data to be delivered incrementally.
