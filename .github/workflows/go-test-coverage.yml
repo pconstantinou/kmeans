@@ -1,0 +1,56 @@
+name: Go Test Coverage
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Step 1: Check out the code from the repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Step 2: Set up Go environment
+    - name: Set up Go 1.x
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.x'
+
+    # Step 3: Cache dependencies
+    - name: Cache Go modules
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cache/go-build
+          ~/go/pkg/mod
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-
+
+    # Step 4: Install dependencies
+    - name: Install dependencies
+      run: go mod download
+
+    # Step 5: Run tests and generate coverage report
+    - name: Run tests with coverage
+      run: |
+        mkdir -p coverage
+        go test -v ./... -coverprofile=coverage/coverage.out
+
+    # Step 6: Upload coverage report as an artifact
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v3
+      with:
+        name: coverage-report
+        path: coverage/coverage.out
+
+    # Optional Step: Display coverage in the console
+    - name: Show coverage
+      run: go tool cover -func=coverage/coverage.out
