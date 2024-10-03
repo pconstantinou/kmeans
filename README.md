@@ -9,13 +9,14 @@ existing code and structs without explicitly duplicating existing objects into a
 Use of iterators of observations (e.g. `iter.Seq[Observation[float64]]`) also provides 
 a mechanism that allows data to be delivered incrementally.
 
+See [scatterplot | ./scatter3d.html] to see a demo visualization.
 
 # Usage
 
 ## Define your observation
 
 
-Provide a struct that implements `Values() []T` where T can be any Number type. 
+Provide a struct that implements `Values(i int) T` where T can be any Number type. 
 
 ```
 type person struct {
@@ -41,17 +42,24 @@ func (p person) age() float64 {
 	return float64(time.Since(p.birthDate) / (time.Hour * 24 * 365))
 }
 
-func (p person) Values() []float64 {
-	return []float64{
-		p.age(),
-		float64(p.height_inches),
-		float64(p.weight_lbs),
-		float64(p.gender),
+
+func (p person) Values(i int) float64 {
+	switch i {
+	case 0:
+		return float64(p.weight_lbs)
+	case 1:
+		return p.age()
+	case 2:
+		return float64(p.height_inches)
+	case 3:
+		return float64(p.gender)
 	}
+	return 0.0
 }
+
 ```
 
-## Implement your observation collection. Your observation collection 
+## Implement your observation collection. This collection is used to populate the clusters
 
 ```
 type peopleObservations []person
@@ -67,7 +75,7 @@ func (p peopleObservations) Observations() iter.Seq[kmeans.Observation[float64]]
 }
 
 func (p peopleObservations) Degree() int {
-	return len(p[0].Values())
+	return 4
 }
 ```
 
@@ -82,6 +90,11 @@ func (p peopleObservations) Degree() int {
     for o := range cc.Observations.ClusterObservations {
         fmt.Println(o)
     }
+```
+
+## Provide additional objects and find the best cluster to associated them with
+
+```
     p := newPerson("kamala", "1964-10-20", 64, 130, 1)
     clusterIndex := cc.Nearest(p)
     fmt.Println("Best cluster is ", clusterIndex)
