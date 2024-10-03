@@ -1,4 +1,9 @@
+[![codecov](https://codecov.io/github/pconstantinou/kmeans/graph/badge.svg?token=3G6C2KFPGN)](https://codecov.io/github/pconstantinou/kmeans)
+
+
+https://github.com/pconstantinou/kmeans
 # kmeans
+
 
 provides a modern go implementation of the kmeans clustering algorithm.
 
