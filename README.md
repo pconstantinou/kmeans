@@ -1,4 +1,5 @@
 [![codecov](https://codecov.io/github/pconstantinou/kmeans/graph/badge.svg?token=3G6C2KFPGN)](https://codecov.io/github/pconstantinou/kmeans)
+[![Go Report Card](https://goreportcard.com/badge/github.com/pconstantinou/kmeans)](https://goreportcard.com/report/github.com/pconstantinou/kmeans)
 
 # kmeans
 
