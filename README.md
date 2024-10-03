@@ -1,7 +1,5 @@
 [![codecov](https://codecov.io/github/pconstantinou/kmeans/graph/badge.svg?token=3G6C2KFPGN)](https://codecov.io/github/pconstantinou/kmeans)
 
-
-https://github.com/pconstantinou/kmeans
 # kmeans
 
 
@@ -14,7 +12,7 @@ existing code and structs without explicitly duplicating existing objects into a
 Use of iterators of observations (e.g. `iter.Seq[Observation[float64]]`) also provides 
 a mechanism that allows data to be delivered incrementally.
 
-See [3d scatter plot](./scatter3d.html) to see a demo visualization.
+See [3d scatter plot](https://pconstantinou.github.io/kmeans/scatter3d.html) to see a demo visualization.
 
 # Usage
 
