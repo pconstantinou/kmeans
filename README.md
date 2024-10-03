@@ -9,7 +9,7 @@ existing code and structs without explicitly duplicating existing objects into a
 Use of iterators of observations (e.g. `iter.Seq[Observation[float64]]`) also provides 
 a mechanism that allows data to be delivered incrementally.
 
-See [scatterplot | ./scatter3d.html] to see a demo visualization.
+See [3d scatter plot](./scatter3d.html) to see a demo visualization.
 
 # Usage
 
