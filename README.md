@@ -105,3 +105,9 @@ func (p peopleObservations) Degree() int {
     fmt.Println("Best cluster is ", clusterIndex)
 
 ```
+
+
+# Acknowledgements
+
+This module was inspired by muesli's [kmeans](https://github.com/muesli/kmeans) and was developed 
+to take advantage of the new language features.
