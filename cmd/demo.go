@@ -159,7 +159,6 @@ func listOfPeople() peopleObservations {
 
 		newPerson("phil", "1972-01-17", 73, 185, 1),
 		newPerson("dave", "1971-10-17", 73, 165, 1),
-		newPerson("lora2", "1966-12-17", 70, 121, 0),
 		newPerson("dean", "1968-12-17", 71, 150, 1),
 		newPerson("cate", "2010-05-10", 60, 95, 0),
 		newPerson("tessa", "2010-09-10", 61, 105, 0),
