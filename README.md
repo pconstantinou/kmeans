@@ -13,6 +13,7 @@ Use of iterators of observations (e.g. `iter.Seq[Observation[float64]]`) also pr
 a mechanism that allows data to be delivered incrementally.
 
 See [3d scatter plot](https://pconstantinou.github.io/kmeans/scatter3d.html) to see a demo visualization.
+This can be regenerated using `go run ./cmd/demo.go -k2 5 ; open scatter3d.html `
 
 # Usage
 

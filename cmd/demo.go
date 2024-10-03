@@ -98,14 +98,14 @@ func genScatter3dData(c kmeans.Cluster[float64]) []opts.Chart3DData {
 func scatter3DBase(k int, cc kmeans.Clusters[float64]) *charts.Scatter3D {
 	scatter3d := charts.NewScatter3D()
 	scatter3d.SetGlobalOptions(
-		charts.WithTitleOpts(opts.Title{Title: fmt.Sprintf("Person cluster k=%d", k)}),
+		charts.WithTitleOpts(opts.Title{Title: fmt.Sprintf("Person cluster k=%d\ngender not rendered", k)}),
 		charts.WithXAxis3DOpts(opts.XAxis3D{Name: "Weight (lbs)", Show: opts.Bool(true), Min: 75}),
-		charts.WithZAxis3DOpts(opts.ZAxis3D{Name: "Height", Min: 55}),
+		charts.WithZAxis3DOpts(opts.ZAxis3D{Name: "Height (in.)", Min: 55}),
 		charts.WithYAxis3DOpts(opts.YAxis3D{Name: "Age (Years)", Min: 10}),
 	)
 	for i, c := range cc {
-		scatter3d.AddSeries(fmt.Sprintf("Cluster %d", i), genScatter3dData(c))
-
+		scatter3d.AddSeries(fmt.Sprintf("Cluster %d (n=%d, v=%2.2f)", i,
+			len(c.Observations.ClusterObservations), c.SumOfDistance()), genScatter3dData(c))
 	}
 	return scatter3d
 }
