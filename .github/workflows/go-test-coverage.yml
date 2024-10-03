@@ -42,15 +42,22 @@ jobs:
     - name: Run tests with coverage
       run: |
         mkdir -p coverage
-        go test -v ./... -coverprofile=coverage.txt
+        go test -v ./... -coverprofile=coverage/coverage.out
 
     # Step 6: Upload coverage report as an artifact
     - name: Upload coverage report
       uses: actions/upload-artifact@v4
       with:
         name: coverage-report
-        path: coverage.txt
+        path: coverage/coverage.out
 
     # Optional Step: Display coverage in the console
     - name: Show coverage
-      run: go tool cover -func=coverage.txt
+      run: go tool cover -func=coverage/coverage.out
+
+    - name: Upload to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        files: coverage/coverage.out
+        flags: unittests
+        fail_ci_if_error: true
