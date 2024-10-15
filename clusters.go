@@ -94,9 +94,9 @@ func (c Clusters[T]) Recenter() {
 }
 
 // Reset clears all point assignments
-func (c Clusters[T]) Reset() {
-	for i := 0; i < len(c); i++ {
-		c[i].Observations.clear()
+func (c *Clusters[T]) Reset() {
+	for i := 0; i < len(*c); i++ {
+		(*c)[i].Reset()
 	}
 }
 
@@ -128,7 +128,9 @@ func (c Clusters[T]) Smallest() int {
 	return s
 }
 
-// New sets up a new set of clusters and randomly seeds their initial positions
+// New sets up a new set of clusters and randomly seeds their initial positions.
+// This function is exponential both in its computation of permutations for possible
+// cluster centers O(k*n*degree) in cluster matching.
 func OptimizeClusters[T Number](k int, dataset Observations[T]) (Clusters[T], error) {
 	if dataset.Degree() == 0 {
 		return nil, ErrEmptyObservations
@@ -209,7 +211,6 @@ func makeCluster[T Number](dataset Observations[T], centers []Observation[T]) Cl
 	for o := range dataset.Observations() {
 		i := c.Nearest(o)
 		c[i].Append(o)
-		c[i].Recenter()
 	}
 	return c
 }

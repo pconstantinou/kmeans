@@ -33,8 +33,8 @@ func main() {
 	defer buf.Flush()
 	defer f.Close()
 	pp := listOfPeople()
-	noo := kmeans.NormalizeObservations(pp)
-	// noo := kmeans.Observations[float64](pp)
+	// noo := kmeans.NormalizeObservations(pp)
+	noo := kmeans.Observations[float64](pp)
 	vv := make(map[int]float64)
 	for k := kClusters; k <= kMaxClusters; k++ {
 		fmt.Println(">>>>>>> K = ", k)
@@ -84,12 +84,20 @@ func observationToSlice(o kmeans.Observation[float64], d int) []interface{} {
 func genScatter3dData(c kmeans.Cluster[float64]) []opts.Chart3DData {
 	data := make([]opts.Chart3DData, 0)
 	deg := c.Observations.Degree()
+	label := opts.Label{Show: opts.Bool(true), BorderRadius: 10.0, Color: "#aa0000",
+		BorderColor: "#ffffff", BorderType: "solid"}
+	central := observationToPerson(c.MostCentral())
 	for o := range c.Observations.All() {
 		person := observationToPerson(o)
 		d := opts.Chart3DData{
 			Name:  person.name,
 			Value: observationToSlice(person, deg),
 		}
+		if observationToPerson(o) == central {
+			d.Label = &label
+			d.ItemStyle = &opts.ItemStyle{BorderColor: "black", BorderWidth: 1.0, Opacity: 0.0, Color0: "black", BorderColor0: "black"}
+		}
+
 		data = append(data, d)
 	}
 	return data

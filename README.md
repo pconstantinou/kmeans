@@ -17,7 +17,8 @@ Use of iterators of observations (e.g. `iter.Seq[Observation[float64]]`) also pr
 a mechanism that allows data to be delivered incrementally.
 
 See [3d scatter plot](https://pconstantinou.github.io/kmeans/scatter3d.html) to see a demo visualization.
-This can be regenerated using `go run ./cmd/demo.go -k2 5 ; open scatter3d.html `
+This can be regenerated using `go run ./cmd/demo.go -k2 5 && open scatter3d.html`
+See [demo source here](./cmd/demo.go)
 
 # Usage
 
@@ -90,9 +91,14 @@ func (p peopleObservations) Degree() int {
 ## Build ClusterObservations
 
 ```
-    var po personObservations
+    var po personObservations // populate the list with your person's
     // Generate k clusters
 	cc, err := OptimizeClusters(k, po)
+```
+
+## Query clusters 
+
+```
     largestIndex := cc.LargestIndex()
     // Print biggest cluster
     for o := range cc.Observations.ClusterObservations {
@@ -100,7 +106,7 @@ func (p peopleObservations) Degree() int {
     }
 ```
 
-## Provide additional objects and find the best cluster to associated them with
+## Find the best cluster new elements
 
 ```
     p := newPerson("kamala", "1964-10-20", 64, 130, 1)
